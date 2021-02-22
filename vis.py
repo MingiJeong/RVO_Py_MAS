@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import matplotlib
-import matplotlib.pyplot as pyplot
+import matplotlib.pyplot as plt
 from matplotlib.path import Path
 import matplotlib.patches as patches
 from matplotlib.patches import Polygon
@@ -12,9 +12,9 @@ from math import atan2, sin, cos, sqrt
 
 
 
-def visualize_traj_dynamic(ws_model, X, U, goal, time = None, name=None):
-    figure = pyplot.figure()
-    ax = figure.add_subplot(1,1,1)
+def visualize_traj_dynamic(ws_model, X, U, goal, ax, time = None, name=None):
+    #figure = plt.figure()
+    #ax = figure.add_subplot(1,1,1)
     cmap = get_cmap(len(X))
     # plot obstacles
     for hole in ws_model['circular_obstacles']:
@@ -52,12 +52,14 @@ def visualize_traj_dynamic(ws_model, X, U, goal, time = None, name=None):
     ax.set_xlabel(r'$x (m)$')
     ax.set_ylabel(r'$y (m)$')
     ax.grid(True)
-    if name:
-        pyplot.savefig(name, dpi = 200)
-        #pyplot.savefig(name,bbox_inches='tight')
-    pyplot.cla()
-    pyplot.close(figure)
-    return figure
+    #if name:
+    #    plt.savefig(name, dpi = 200)
+        #plt.savefig(name,bbox_inches='tight')
+    plt.draw()
+    plt.pause(0.00001)
+    plt.cla()
+    #plt.close(figure)
+    #return figure
 
 def get_cmap(N):
     '''Returns a function that maps each index in 0, 1, ... N-1 to a distinct RGB color.'''

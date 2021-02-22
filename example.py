@@ -3,7 +3,11 @@ import sys
 
 from RVO import RVO_update, reach, compute_V_des, reach
 from vis import visualize_traj_dynamic
+import matplotlib.pyplot as plt
+from matplotlib import ticker
 
+plt.ion()
+figure, ax = plt.subplots()
 
 #------------------------------
 #define workspace model
@@ -44,6 +48,7 @@ while t*step < total_time:
     V_des = compute_V_des(X, goal, V_max)
     # compute the optimal vel to avoid collision
     V = RVO_update(X, V_des, V, ws_model)
+    V = RVO_update(X, V_des, V, ws_model)
     # update position
     for i in range(len(X)):
         X[i][0] += V[i][0]*step
@@ -51,7 +56,7 @@ while t*step < total_time:
     #----------------------------------------
     # visualization
     if t%10 == 0:
-        visualize_traj_dynamic(ws_model, X, V, goal, time=t*step, name='data/snap%s.png'%str(t/10))
+        visualize_traj_dynamic(ws_model, X, V, goal, ax, time=t*step, name='data/snap%s.png'%str(t/10))
         #visualize_traj_dynamic(ws_model, X, V, goal, time=t*step, name='data/snap%s.png'%str(t/10))
     t += 1
     
